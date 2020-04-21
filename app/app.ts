@@ -1,13 +1,17 @@
+/// <reference path="player.ts" />
+
 function startGame(e:Event) {
-    e.preventDefault()
+    console.log(e)
+    e.preventDefault();
     let playerName: string | undefined = getInputValue('playerName');
     logPlayer(playerName);
 
-    postScore(100, playerName);
+    postScore(80, playerName);
+    postScore(-5, playerName);
 }
 
 function logPlayer (name: string = 'MultiMath Player'): void {
-    console.log(`player name is: ${name}`)
+    console.log(`player name is: ${name}`);
 }
 
 function getInputValue(elementId: string): string | undefined {
@@ -23,7 +27,7 @@ function getInputValue(elementId: string): string | undefined {
 function postScore(score: number, playerName?: string) : void {
     let logger: (value:string) => void;
 
-    if (score <0) {
+    if (score < 0) {
         logger = logError;
     } else {
         logger = logMessage;
@@ -35,10 +39,26 @@ function postScore(score: number, playerName?: string) : void {
     logger(`Score: ${score}`);
 }
 
-document.querySelector('#startGame')!.addEventListener('submit', startGame)
+document.querySelector('#nameForm')!.addEventListener('submit', startGame, false)
 
 const logMessage = (message:string) => console.log(message)
 
 function logError(err:string):void {
     console.error(err)
 }
+
+// let myResult: Result = {
+//     playerName: 'Geisy',
+//     score: 5,
+//     problemCount: 5,
+//     factor: 7
+// };
+
+// let player: Person = {
+//     name: 'Geisy',
+//     formatName: () => 'JZ'
+// }
+
+const firstPlayer: Player = new Player();
+firstPlayer.name = 'Geisy'
+console.log(firstPlayer.formatName())
