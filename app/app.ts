@@ -21,8 +21,24 @@ function getInputValue(elementId: string): string | undefined {
 }
 
 function postScore(score: number, playerName?: string) : void {
+    let logger: (value:string) => void;
+
+    if (score <0) {
+        logger = logError;
+    } else {
+        logger = logMessage;
+    }
+
     const scoreElement: HTMLElement | null = document.querySelector('#postedScores');
     scoreElement!.innerText = `${score} - ${playerName}`;
+
+    logger(`Score: ${score}`);
 }
 
 document.querySelector('#startGame')!.addEventListener('submit', startGame)
+
+const logMessage = (message:string) => console.log(message)
+
+function logError(err:string):void {
+    console.error(err)
+}
