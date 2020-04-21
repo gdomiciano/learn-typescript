@@ -1,64 +1,21 @@
 /// <reference path="player.ts" />
+/// <reference path="game.ts" />
 
-function startGame(e:Event) {
-    console.log(e)
-    e.preventDefault();
-    let playerName: string | undefined = getInputValue('playerName');
-    logPlayer(playerName);
+let newGame: Game;
 
-    postScore(80, playerName);
-    postScore(-5, playerName);
-}
+document.querySelector('#nameForm')!.addEventListener('submit', (e) => {
+    e.preventDefault()
+    const player: Player = new Player;
+    player.name = Utility.getInputValue('playerName');
 
-function logPlayer (name: string = 'MultiMath Player'): void {
-    console.log(`player name is: ${name}`);
-}
+    const problemCount: number  = Number(Utility.getInputValue('problemCount'));
+    const factor: number  = Number(Utility.getInputValue('factor'));
 
-function getInputValue(elementId: string): string | undefined {
-    const inputElement: HTMLInputElement = <HTMLInputElement>document.querySelector(`#${elementId}`)
+    newGame = new Game(player, problemCount, factor);
+    newGame.displayGame();
+}, false);
 
-    if (inputElement.value === '') {
-        return undefined
-    } else {
-        return inputElement.value
-    }
-}
 
-function postScore(score: number, playerName?: string) : void {
-    let logger: (value:string) => void;
-
-    if (score < 0) {
-        logger = logError;
-    } else {
-        logger = logMessage;
-    }
-
-    const scoreElement: HTMLElement | null = document.querySelector('#postedScores');
-    scoreElement!.innerText = `${score} - ${playerName}`;
-
-    logger(`Score: ${score}`);
-}
-
-document.querySelector('#nameForm')!.addEventListener('submit', startGame, false)
-
-const logMessage = (message:string) => console.log(message)
-
-function logError(err:string):void {
-    console.error(err)
-}
-
-// let myResult: Result = {
-//     playerName: 'Geisy',
-//     score: 5,
-//     problemCount: 5,
-//     factor: 7
-// };
-
-// let player: Person = {
-//     name: 'Geisy',
-//     formatName: () => 'JZ'
-// }
-
-const firstPlayer: Player = new Player();
-firstPlayer.name = 'Geisy'
-console.log(firstPlayer.formatName())
+document.querySelector('#calculate')!.addEventListener('click', () => {
+    newGame.calculateScore();
+})
