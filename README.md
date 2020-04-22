@@ -1,9 +1,3 @@
-# learning Javascript
+# Acme bank typescript
 
-This repository contains demos from the pluralsight Typescript path: <https://app.pluralsight.com/paths/skills/typescript-core-language>
-
-Among the courses each demo can be found in different branches:
-
-- [Getting Started - Multi-math](https://github.com/gdomiciano/learn-typescript/tree/multi-math)
-- Object Oriented with typescript
-- Typescript decorators
+This branch contains demos from the pluralsight Typescript Object oriented course: <https://app.pluralsight.com/courses/d39f3732-aa2b-4cc7-ae0f-802982a572e5/table-of-contents>
